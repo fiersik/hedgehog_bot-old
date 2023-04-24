@@ -27,6 +27,8 @@ class BotDB:
             )
         ''')
 
+        self.cursor.execute(f"UPDATE chat_stat SET news_sub = ? WHERE news_sub = ?", (0, 1,))
+
         return self.conn.commit()
 
     def create_table(self, table: str) -> None:
@@ -36,7 +38,11 @@ class BotDB:
                 id INTEGER PRIMARY KEY NOT NULL,
                 object_id INTEGER UNIQUE NOT NULL,
                 hedgehog TEXT,
-                hedgehog_name TEXT NOT NULL DEFAULT [Мой ёжик]
+                hedgehog_name TEXT NOT NULL DEFAULT [Мой ёжик],
+                hunger INTEGER NOT NULL DEFAULT (24),
+                is_starving INTEGER NOT NULL DEFAULT (0),
+                remove_hedgehog INTEGER NOT NULL DEFAULT (0),
+                can_eat INTEGER NOT NULL DEFAULT (1)
             )
         ''')
         return self.conn.commit()

@@ -10,6 +10,8 @@ admin_labeler = BotLabeler()
 admin_labeler.vbml_ignore_case = True
 
 
+# commands for conversation admins
+
 """РАССЫЛКА ЕЖЕЙ"""
 @admin_labeler.message(admin_rule(), text = "подписаться на рассылку")
 async def news(m: Message):

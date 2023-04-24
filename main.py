@@ -9,9 +9,9 @@ from handlers import (
 
 
 labeler.load(new_chat_labeler)
-labeler.load(Basic_labeler)
-labeler.load(creator_labeler)
 labeler.load(admin_labeler)
+labeler.load(creator_labeler)
+labeler.load(Basic_labeler)
 
 
 bot = Bot(
