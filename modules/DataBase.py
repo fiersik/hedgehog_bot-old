@@ -8,16 +8,38 @@ class BotDB:
         self.conn = sqlite3.connect(bd_file)
         self.cursor = self.conn.cursor()
 
+    def start_db(self) -> None:
+        """Создание системных бд"""
+        self.cursor.execute(f'''
+            CREATE TABLE IF NOT EXISTS chat_stat  (
+                id INTEGER PRIMARY KEY,
+                object_id INTEGER NOT NULL UNIQUE,
+                news_sub INTEGER NOT NULL DEFAULT (0),
+                new_hedgehog TEXT
+            )
+        ''')
+
+        self.cursor.execute(f'''
+            CREATE TABLE IF NOT EXISTS user_stat  (
+                id INTEGER,
+                object_id INTEGER NOT NULL UNIQUE,
+                vip INTEGER NOT NULL DEFAULT (0)
+            )
+        ''')
+
+        return self.conn.commit()
+
     def create_table(self, table: str) -> None:
         """Создание таблицы"""
         self.cursor.execute(f'''
-            CREATE TABLE IF NOT EXISTS {table}  (
+            CREATE TABLE IF NOT EXISTS {table} (
                 id INTEGER PRIMARY KEY NOT NULL,
                 object_id INTEGER UNIQUE NOT NULL,
                 hedgehog TEXT,
                 hedgehog_name TEXT NOT NULL DEFAULT [Мой ёжик]
             )
         ''')
+        return self.conn.commit()
 
     def object_exists(self, object_id: int, table: str) -> bool:
         """Проверка наличия в бд"""

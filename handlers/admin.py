@@ -3,6 +3,7 @@ from modules import admin_rule
 import asyncio
 from datetime import datetime
 from config import db
+import random
 
 
 admin_labeler = BotLabeler()
@@ -18,8 +19,6 @@ async def news(m: Message):
         )
         return
 
-    print("\n\nhello\n\n")
-
     await m.answer(
         "Вы подписались на рассылку."
         "Каждые 2 часа вашей беседе будет приходить ёжик."
@@ -33,10 +32,17 @@ async def news(m: Message):
             return
 
         if datetime.now().hour%2 == 0 and datetime.now().minute == 0:
+
+            rand = random.randint(9019, 9034)
+            photo = f"photo-219000856_45723{rand}"
+
             if db.get_info(m.peer_id, "chat_stat", "news_sub"):
+
+                db.update_info(m.peer_id, "chat_stat", "new_hedgehog", photo)
+
                 await m.answer(
-                    "Вам ёжик\n"
-                    "'ТИПО ЁЖ'"
+                    "Вам ёжик",
+                    attachment=photo
                 )
                 await asyncio.sleep(60)
             else:

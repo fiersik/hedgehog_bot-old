@@ -35,8 +35,8 @@ async def user_joined(m: Message) -> None:
 
         if not db.object_exists(vk_id, f"chat_{m.peer_id}"):
             db.add_object(vk_id, f"chat_{m.peer_id}")
-        if not db.object_exists(vk_id, "user_stats"):
-            db.add_object(vk_id, "user_stats")
+        if not db.object_exists(vk_id, "user_stat"):
+            db.add_object(vk_id, "user_stat")
 
 
 @new_chat_labeler.chat_message((rules.ChatActionRule("chat_invite_user_by_link")))
@@ -54,8 +54,8 @@ async def user_joined_by_link(m: Message) -> None:
 
     if not db.object_exists(vk_id, f"chat_{m.peer_id}"):
         db.add_object(vk_id, f"chat_{m.peer_id}")
-    if not db.object_exists(vk_id, "user_stats"):
-        db.add_object(vk_id, "user_stats")
+    if not db.object_exists(vk_id, "user_stat"):
+        db.add_object(vk_id, "user_stat")
 
 
 @new_chat_labeler.message(payload = {"admin": "check"})
@@ -67,8 +67,8 @@ async def admin_check(m: Message):
             if vk_id > 0:
                 if not db.object_exists(vk_id, f"chat_{m.peer_id}"):
                     db.add_object(vk_id, f"chat_{m.peer_id}")
-                if not db.object_exists(vk_id, "user_stats"):
-                    db.add_object(vk_id, "user_stats")
+                if not db.object_exists(vk_id, "user_stat"):
+                    db.add_object(vk_id, "user_stat")
 
         await m.answer("спасибо, я готов к работе")
 
