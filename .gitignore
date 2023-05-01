@@ -2,4 +2,3 @@ __pycache__/
 img/
 *.db
 *.txt
-config.py

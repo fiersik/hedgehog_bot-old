@@ -58,7 +58,7 @@ async def user_joined_by_link(m: Message) -> None:
         db.add_object(vk_id, "user_stat")
 
 
-@new_chat_labeler.message(payload = {"admin": "check"})
+@new_chat_labeler.chat_message(payload={"admin": "check"})
 async def admin_check(m: Message):
     try:
         members = await api.messages.get_conversation_members(m.peer_id)
